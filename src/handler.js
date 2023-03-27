@@ -17,7 +17,7 @@ const addBook = (req, h) => {
   if (!name) {
     const res = h.response({
       status: 'fail',
-      msg: 'Gagal menambahkan buku. Mohon isi nama buku',
+      message: 'Gagal menambahkan buku. Mohon isi nama buku',
     });
 
     res.code(400);
@@ -27,7 +27,7 @@ const addBook = (req, h) => {
   if (pageCount < readPage) {
     const res = h.response({
       status: 'fail',
-      msg: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
+      message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
     });
 
     res.code(400);
@@ -45,7 +45,7 @@ const addBook = (req, h) => {
   if (isSuccess) {
     const res = h.response({
       status: 'success',
-      message: 'Berhasil menambahkan buku',
+      message: 'Buku berhasil ditambahkan',
       data: {
         bookId: id,
       },
@@ -80,7 +80,11 @@ const getBooks = (req, h) => {
     return {
       status: 'success',
       data: {
-        books: filtered,
+        books: filtered.map((row) => ({
+          id: row.id,
+          name: row.name,
+          publisher: row.publisher,
+        })),
       },
     };
   } if (reading) {
@@ -90,7 +94,11 @@ const getBooks = (req, h) => {
       return {
         status: 'success',
         data: {
-          books: filtered,
+          books: filtered.map((row) => ({
+            id: row.id,
+            name: row.name,
+            publisher: row.publisher,
+          })),
         },
       };
     } if (reading === '1') {
@@ -99,7 +107,11 @@ const getBooks = (req, h) => {
       return {
         status: 'success',
         data: {
-          books: filtered,
+          books: filtered.map((row) => ({
+            id: row.id,
+            name: row.name,
+            publisher: row.publisher,
+          })),
         },
       };
     }
@@ -110,7 +122,11 @@ const getBooks = (req, h) => {
       return {
         status: 'success',
         data: {
-          books: filtered,
+          books: filtered.map((row) => ({
+            id: row.id,
+            name: row.name,
+            publisher: row.publisher,
+          })),
         },
       };
     } if (finished === '1') {
@@ -119,7 +135,11 @@ const getBooks = (req, h) => {
       return {
         status: 'success',
         data: {
-          books: filtered,
+          books: filtered.map((row) => ({
+            id: row.id,
+            name: row.name,
+            publisher: row.publisher,
+          })),
         },
       };
     }
@@ -169,7 +189,7 @@ const editBookById = (req, h) => {
   if (!name) {
     const res = h.response({
       status: 'fail',
-      msg: 'Gagal memperbarui  buku. Mohon isi nama buku',
+      message: 'Gagal memperbarui buku. Mohon isi nama buku',
     });
 
     res.code(400);
@@ -179,7 +199,7 @@ const editBookById = (req, h) => {
   if (pageCount < readPage) {
     const res = h.response({
       status: 'fail',
-      msg: 'Gagal memperbarui  buku. readPage tidak boleh lebih besar dari pageCount',
+      message: 'Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount',
     });
 
     res.code(400);
@@ -239,7 +259,7 @@ const deleteBookById = (req, h) => {
 
   const res = h.response({
     status: 'fail',
-    message: 'Gagal menghapus buku. Id tidak ditemukan',
+    message: 'Buku gagal dihapus. Id tidak ditemukan',
   });
   res.code(404);
   return res;
